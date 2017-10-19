@@ -8,7 +8,7 @@ class SortButton extends React.Component {
     let sortArrow = ''
     let styles = {}
 
-    if (this.props.selected===this.props.name) {
+    if (this.props.selected===this.props.keyName) {
       sortArrow = this.props.isUp ? '\u25B2' : '\u25BC'
       styles.fontWeight = 'bold'
     }
@@ -16,9 +16,9 @@ class SortButton extends React.Component {
     return (
       <button
         style={styles}
-        onClick={()=>this.props.changeSorter(this.props.name)}
+        onClick={()=>this.props.changeSorter(this.props.keyName)}
       >
-        {this.props.name} {sortArrow}
+        {this.props.textName} {sortArrow}
       </button>
     )
   }

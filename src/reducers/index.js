@@ -13,7 +13,7 @@ const repsReducer = (state = [], action) => {
         {
           id: newId,
           name: action.payload.rep.name,
-          category: action.payload.rep.category,
+          category: action.payload.rep.category || '[none]',
           tCode: action.payload.rep.tCode
         }
       ]
@@ -67,9 +67,23 @@ const sorterReducer = (state = [], action) => {
 
 //*************
 
+const filterReducer = (state = [], action) => {
+  switch (action.type) {
+
+    case 'CHANGE_FILTER':
+      return action.payload
+
+    default:
+      return state
+  }
+}
+
+//*************
+
 const reducers = combineReducers({
   reps: repsReducer,
-  sorter: sorterReducer
+  sorter: sorterReducer,
+  filter: filterReducer
 })
 
 export default reducers

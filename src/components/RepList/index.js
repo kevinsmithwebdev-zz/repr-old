@@ -2,6 +2,8 @@ import React from 'react'
 
 import Rep from '../Rep/'
 
+import SortButton from '../SortButton/'
+
 import { connect } from 'react-redux'
 
 class Replist extends React.Component {
@@ -11,14 +13,28 @@ class Replist extends React.Component {
       <table>
         <thead>
           <tr>
-            <th>Repertoire</th>
+            <th>
+              <SortButton
+                keyName='name'
+                textName='Repetoire'
+                selected={this.props.sorter.key}
+                isUp={this.props.sorter.isUp}
+              />
+            </th>
             <th>Category</th>
-            <th>Elapsed</th>
+            <th>
+              <SortButton
+                keyName='elapsed'
+                textName='Elapsed'
+                selected={this.props.sorter.key}
+                isUp={this.props.sorter.isUp}
+              />
+            </th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {sortRepsByKey(this.props.reps, this.props.sorter).map((rep, index) => <Rep key={index} rep={rep} />)}
+          {sortRepsByKey(this.props.reps, this.props.sorter, this.props.filter).map((rep, index) => <Rep key={index} rep={rep} />)}
         </tbody>
       </table>
     )
@@ -28,13 +44,23 @@ class Replist extends React.Component {
 function mapStateToProps(state) {
   return {
     reps: state.reps,
-    sorter: state.sorter
+    sorter: state.sorter,
+    filter: state.filter
   }
 }
 
 export default connect(mapStateToProps)(Replist)
 
-function sortRepsByKey(reps, sorter) {
+function sortRepsByKey(reps, sorter, filter) {
+
+  let visibleReps = reps.slice()
+
+  if (filter.filter!=='All') {
+    visibleReps = reps.filter( function(rep) {
+      return rep.category===filter.filter;
+    })
+  }
+
   let sortKey = ''
   switch (sorter.key) {
     case 'elapsed':
@@ -49,7 +75,7 @@ function sortRepsByKey(reps, sorter) {
   let up = sorter.isUp ? 1 : -1
   let down = sorter.isUp ? -1 : 1
 
-  return reps.sort(function(a, b) {
+  return visibleReps.sort(function(a, b) {
     if (a[sortKey]<b[sortKey])
       return up
     if (a[sortKey]>b[sortKey])

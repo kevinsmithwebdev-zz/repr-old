@@ -1,7 +1,7 @@
 const addRep = (rep) => {
   return {
     type: 'ADD_REP',
-    payload: { rep } 
+    payload: { rep }
   }
 }
 
@@ -26,4 +26,11 @@ const changeSorter = (key) => {
   }
 }
 
-export {addRep, deleteRep, resetRep, changeSorter}
+const changeFilter = (filter) => {
+  return {
+    type: 'CHANGE_FILTER',
+    payload: { filter }
+  }
+}
+
+export {addRep, deleteRep, resetRep, changeSorter, changeFilter}

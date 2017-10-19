@@ -6,7 +6,7 @@ import RepList from "./components/RepList/"
 
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {addRep, changeSorter} from './actions/'
+import {addRep, changeSorter, changeFilter} from './actions/'
 
 import {PRELOAD} from './constants/'
 
@@ -17,6 +17,7 @@ class App extends Component {
     for (var i=0; i<PRELOAD.length; i++)
       this.props.addRep(PRELOAD[i])
     this.props.changeSorter('elapsed')
+    this.props.changeFilter('All')
   }
 
   render() {
@@ -24,6 +25,7 @@ class App extends Component {
       <div>
         <Header />
         <RepBar />
+        <br/>
         <RepList />
       </div>
     );
@@ -31,7 +33,7 @@ class App extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({addRep, changeSorter}, dispatch)
+  return bindActionCreators({addRep, changeSorter, changeFilter}, dispatch)
 }
 
 export default connect(()=>{return {}}, mapDispatchToProps)(App)
