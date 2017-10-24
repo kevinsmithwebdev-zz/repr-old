@@ -1,42 +1,42 @@
 import React from 'react'
-
 import Rep from '../Rep/'
-
 import SortButton from '../SortButton/'
-
 import { connect } from 'react-redux'
+import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
+
+import './style.css'
+
+import { Grid, Row, Col } from 'react-bootstrap'
 
 class Replist extends React.Component {
   render() {
 
     return (
-      <table>
-        <thead>
-          <tr>
-            <th>
+      <div>
+        <Grid>
+          <Row className="titleRow show-grid">
+            <Col md={5}>
               <SortButton
                 keyName='name'
                 textName='Repetoire'
                 selected={this.props.sorter.key}
                 isUp={this.props.sorter.isUp}
               />
-            </th>
-            <th>Category</th>
-            <th>
+            </Col>
+            <Col md={3}>Category</Col>
+            <Col md={2}>
               <SortButton
                 keyName='elapsed'
                 textName='Elapsed'
                 selected={this.props.sorter.key}
                 isUp={this.props.sorter.isUp}
               />
-            </th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
+            </Col>
+            <Col md={2}>Actions</Col>
+          </Row>
           {sortRepsByKey(this.props.reps, this.props.sorter, this.props.filter).map((rep, index) => <Rep key={index} rep={rep} />)}
-        </tbody>
-      </table>
+        </Grid>
+      </div>
     )
   }
 }

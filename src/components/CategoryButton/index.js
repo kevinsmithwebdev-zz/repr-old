@@ -10,7 +10,6 @@ class CategoryButton extends React.Component {
   }
 
   handleChange(e) {
-    console.log(e.target.value)
     this.props.changeFilter(e.target.value)
   }
 

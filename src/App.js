@@ -7,15 +7,16 @@ import RepList from "./components/RepList/"
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {addRep, changeSorter, changeFilter} from './actions/'
-
-import {PRELOAD} from './constants/'
+import { loadReps } from './data/'
 
 class App extends Component {
   constructor(props) {
     super(props)
 
-    for (var i=0; i<PRELOAD.length; i++)
-      this.props.addRep(PRELOAD[i])
+    loadReps().forEach(rep => {
+      this.props.addRep(rep, false)
+    })
+
     this.props.changeSorter('elapsed')
     this.props.changeFilter('All')
   }

@@ -15,3 +15,5 @@ export const PRELOAD = [
   { name: "It Don't Mean a Thing", category: 'jazz',                  tCode: 1507530666539 },
   { name: "Do Nothin' 'till You Hear from Me", category: 'jazz',      tCode: 1507890643539 }
 ]
+
+export const LOCAL_STORAGE_NAME = 'reprStorage'

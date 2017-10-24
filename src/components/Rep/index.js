@@ -2,31 +2,33 @@ import React from 'react'
 import {bindActionCreators} from 'redux'
 import {deleteRep, resetRep} from '../../actions/'
 import {connect} from 'react-redux'
+import { Button, Row, Col } from 'react-bootstrap'
+
+import './style.css'
 
 class Rep extends React.Component {
   render() {
-    // console.log(this.props.rep)
     let curTCode = (new Date()).getTime()
 
     const MS_PER_DAY = 1000*60*60*24
     const daysElapsed = (tCode) => Math.round((curTCode - tCode) / MS_PER_DAY)
 
     return (
-      <tr>
-        <td>
+      <Row className="show-grid repRow">
+        <Col md={5}>
           {this.props.rep.name}
-        </td>
-        <td>
+        </Col>
+        <Col md={3}>
           {this.props.rep.category}
-        </td>
-        <td>
+        </Col>
+        <Col md={2} className="elapsedNum">
           {daysElapsed(this.props.rep.tCode)}
-        </td>
-        <td>
-          <button onClick={()=>this.props.deleteRep(this.props.rep.id)}>Delete</button>
-          <button onClick={()=>this.props.resetRep(this.props.rep.id, curTCode)}>Reset</button>
-        </td>
-      </tr>
+        </Col>
+        <Col md={2}>
+          <Button onClick={()=>this.props.deleteRep(this.props.rep.id)}>Delete</Button>
+          <Button onClick={()=>this.props.resetRep(this.props.rep.id, curTCode)}>Reset</Button>
+        </Col>
+      </Row>
     )
   }
 }

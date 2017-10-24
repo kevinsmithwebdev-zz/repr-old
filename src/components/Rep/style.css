@@ -1,0 +1,12 @@
+.repRow {
+  background-color: #82b74b;
+  border: 2px #405d27 solid;
+  border-radius: 3px;
+  margin: 3px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.elapsedNum {
+  text-align: center
+}

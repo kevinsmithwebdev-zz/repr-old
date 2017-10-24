@@ -1,7 +1,7 @@
-const addRep = (rep) => {
+const addRep = (rep, persist = true) => {
   return {
     type: 'ADD_REP',
-    payload: { rep }
+    payload: { rep, persist }
   }
 }
 

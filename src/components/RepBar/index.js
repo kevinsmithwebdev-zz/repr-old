@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux'
 import { addRep } from '../../actions/'
 
 import './style.css'
-
 import CategoryButton from '../CategoryButton/'
 
 class RepBar extends React.Component {
@@ -48,8 +47,8 @@ class RepBar extends React.Component {
     let isFormValid = true
     let repName = inputs[0].value.trim()
 
-    if (repName.length<=3) {
-      this.setState({ nameError: 'Repertoire name must be at least 3 characters' })
+    if (repName.length<3) {
+      this.setState({ nameError: 'Repertoire name must be at least 3 characters.' })
       isFormValid = false
     } else {
       isFormValid = true
@@ -57,16 +56,14 @@ class RepBar extends React.Component {
     return isFormValid
   }
 
-
   render() {
-    let inputErrorStyle = (this.state.nameError)?"inputError":""
 
     return (
       <div>
         <form noValidate>
           <div className="form-group">
             <input
-              className= { inputErrorStyle + " form-control"}
+              className={(this.state.nameError)?'inputError form-control':'form-control'}
               type="text"
               name="name"
               ref="name"
@@ -88,7 +85,10 @@ class RepBar extends React.Component {
               submit
             </button>
           </div>
-          <div className="error" id="nameError" >
+          <div
+            className="error"
+            id="nameError"
+          >
             {this.state.nameError}
           </div>
         </form>

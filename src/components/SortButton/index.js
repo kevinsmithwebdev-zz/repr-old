@@ -3,23 +3,26 @@ import { bindActionCreators } from 'redux'
 import { changeSorter } from '../../actions/'
 import { connect } from 'react-redux'
 
+import './style.css'
+
+import { TiArrowSortedUp, TiArrowSortedDown, TiArrowUnsorted } from 'react-icons/lib/ti'
+
 class SortButton extends React.Component {
   render() {
-    let sortArrow = ''
-    let styles = {}
+    let sortArrow = (<TiArrowUnsorted className="arrowUnsorted" />)
 
     if (this.props.selected===this.props.keyName) {
-      sortArrow = this.props.isUp ? '\u25B2' : '\u25BC'
-      styles.fontWeight = 'bold'
+      sortArrow = this.props.isUp ?
+        (<TiArrowSortedUp className="arrowSorted"/>) :
+        (<TiArrowSortedDown className="arrowSorted"/>)
     }
 
     return (
-      <button
-        style={styles}
+      <span
         onClick={()=>this.props.changeSorter(this.props.keyName)}
       >
         {this.props.textName} {sortArrow}
-      </button>
+      </span>
     )
   }
 }

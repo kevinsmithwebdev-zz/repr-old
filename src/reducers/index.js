@@ -1,14 +1,12 @@
 import {combineReducers} from 'redux'
-
+import { saveReps } from '../data/'
 //*************
 
 const repsReducer = (state = [], action) => {
   switch (action.type) {
-
     case 'ADD_REP':
       let newId = (state.length) ? (Math.max.apply(Math, state.map(function(rep) {return rep.id})) + 1) : 0
-
-      return [
+      let newReps = [
         ...state,
         {
           id: newId,
@@ -17,6 +15,9 @@ const repsReducer = (state = [], action) => {
           tCode: action.payload.rep.tCode
         }
       ]
+      if (action.payload.persist)
+        saveReps(newReps)
+      return newReps
 
     case 'DELETE_REP':
       let index = state.findIndex(function(rep) {
@@ -57,7 +58,6 @@ const sorterReducer = (state = [], action) => {
       } else {
         newSorter.isUp = false
       }
-
       return newSorter
 
     default:

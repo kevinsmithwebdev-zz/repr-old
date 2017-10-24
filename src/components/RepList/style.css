@@ -1,0 +1,10 @@
+.titleRow {
+  background-color: #405d27;
+  border: 2px #3e4444 solid;
+  border-radius: 3px;
+  margin: 3px;
+  font-size: 22px;
+  color: #F5F5DC;
+  font-weight: bold;
+  text-align: center;
+}
