@@ -1,12 +1,14 @@
 import {combineReducers} from 'redux'
 import { saveReps } from '../data/'
+
 //*************
 
 const repsReducer = (state = [], action) => {
+  let newReps = []
   switch (action.type) {
     case 'ADD_REP':
       let newId = (state.length) ? (Math.max.apply(Math, state.map(function(rep) {return rep.id})) + 1) : 0
-      let newReps = [
+      newReps = [
         ...state,
         {
           id: newId,
@@ -23,20 +25,25 @@ const repsReducer = (state = [], action) => {
       let index = state.findIndex(function(rep) {
         return rep.id === action.payload.id
       })
-      return [
+      newReps = [
         ...state.slice(0, index),
         ...state.slice(index + 1)
       ]
 
+      saveReps(newReps)
+      return newReps
+
     case 'RESET_REP':
-      return state.map(rep => {
+      newReps = state.map(rep => {
         if (rep.id !== action.payload.id)
           return rep
         else
           return Object.assign({}, rep, {
             tCode: (new Date()).getTime()
           })
-      })
+      }).slice()
+      saveReps(newReps)
+      return newReps
 
     default:
       return state

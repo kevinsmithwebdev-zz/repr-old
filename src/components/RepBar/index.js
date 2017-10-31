@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { Button, ControlLabel, Form, FormControl, FormGroup } from 'react-bootstrap'
 import { addRep } from '../../actions/'
 
 import './style.css'
@@ -28,9 +29,9 @@ class RepBar extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault()
+    const inputs = document.querySelectorAll('input')
 
-    if (this.showFormErrors()) {
-      let inputs = document.querySelectorAll('input')
+    if (this.showFormErrors(inputs)) {
       let repName = inputs[0].value.trim()
       let category = inputs[1].value.trim()
       this.props.addRep({
@@ -42,11 +43,9 @@ class RepBar extends React.Component {
     }
   }
 
-  showFormErrors() {
-    const inputs = document.querySelectorAll('input')
+  showFormErrors(inputs) {
     let isFormValid = true
     let repName = inputs[0].value.trim()
-
     if (repName.length<3) {
       this.setState({ nameError: 'Repertoire name must be at least 3 characters.' })
       isFormValid = false
@@ -57,46 +56,53 @@ class RepBar extends React.Component {
   }
 
   render() {
-
     return (
       <div>
-        <form noValidate>
-          <div className="form-group">
-            <input
-              className={(this.state.nameError)?'inputError form-control':'form-control'}
-              type="text"
+        <Form inline className='centered'>
+          <FormGroup controlId="formInlineName">
+            <ControlLabel>Title</ControlLabel>
+            {' '}
+            <FormControl
+              className={(this.state.nameError)?'inputError':''}
               name="name"
-              ref="name"
-              placeholder="add a piece of music"
-              value={ this.state.name }
-              onChange={ this.handleChange }
-            required />
-            <input className="form-control"
               type="text"
-              name="category"
-              ref="category"
-              placeholder="category (opt.)"
-              value={ this.state.category }
-              onChange={ this.handleChange }
+              placeholder="repertoire title..."
             />
-            <button className="btn btn-primary"
-              onClick={ this.handleSubmit }
-            >
-              submit
-            </button>
-          </div>
+          </FormGroup>
+          {' '}
+          <FormGroup controlId="formInlineEmail">
+            <ControlLabel>Category</ControlLabel>
+            {' '}
+            <FormControl
+              name="category"
+              type="text"
+              placeholder="category (opt.)"
+            />
+          </FormGroup>
+          {' '}
+          <Button
+            type="submit"
+            className="btn btn-primary"
+            onClick={ this.handleSubmit }
+          >
+            Add
+          </Button>
           <div
             className="error"
             id="nameError"
           >
             {this.state.nameError}
           </div>
-        </form>
-        <CategoryButton />
+        </Form>
+        <br/>
+        <div className='centered'>
+          <CategoryButton />
+        </div>
       </div>
     );
   }
 }
+
 
 function mapStateToProps(state) {
   return {

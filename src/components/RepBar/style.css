@@ -5,3 +5,16 @@
 .inputError {
   background: #fcc;
 }
+
+.form {
+  display: inline;
+}
+
+.form-control {
+  vertical-align: top;
+}
+
+.centered {
+  /*margin: 0 auto;*/
+  text-align: center;
+}
